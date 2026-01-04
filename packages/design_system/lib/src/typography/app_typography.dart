@@ -129,6 +129,36 @@ abstract final class AppTypography {
       );
 
   // ============================================
+  // Material Design Aliases
+  // ============================================
+
+  /// Display small (alias for heading3)
+  static TextStyle get displaySmall => heading3;
+
+  /// Headline large (alias for heading3)
+  static TextStyle get headlineLarge => heading3;
+
+  /// Headline medium (alias for heading4)
+  static TextStyle get headlineMedium => heading4;
+
+  /// Headline small
+  static TextStyle get headlineSmall => _displayBase.copyWith(
+        fontSize: 24,
+        fontWeight: FontWeight.w600,
+        height: 1.3,
+      );
+
+  /// Body medium (alias for bodySmall)
+  static TextStyle get bodyMedium => bodySmall;
+
+  /// Caption text
+  static TextStyle get caption => _bodyBase.copyWith(
+        fontSize: 14,
+        fontWeight: FontWeight.w400,
+        height: 1.4,
+      );
+
+  // ============================================
   // Utility Methods
   // ============================================
 

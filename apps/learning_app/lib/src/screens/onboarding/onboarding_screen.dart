@@ -52,15 +52,12 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     if (_selectedCharacter == null || _userName.isEmpty) return;
 
     // Create profile
-    final profileRepo = ref.read(profileRepositoryProvider);
-    final profile = await profileRepo.createProfile(
-      name: _userName,
-      avatarId: _selectedCharacter!.name,
-    );
+    final profileRepo = await ref.read(profileRepositoryProvider.future);
+    final profile = await profileRepo.create(name: _userName);
 
     // Create character
-    final charRepo = ref.read(characterRepositoryProvider);
-    await charRepo.createCharacter(
+    final charRepo = await ref.read(characterRepositoryProvider.future);
+    await charRepo.create(
       profileId: profile.id,
       type: _selectedCharacter!,
       name: _characterName.isNotEmpty
@@ -69,7 +66,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
     );
 
     // Initialize streak
-    final streakManager = ref.read(streakManagerProvider);
+    final streakManager = await ref.read(streakManagerProvider.future);
     await streakManager.recordActivity(profile.id);
 
     // Navigate to home
@@ -150,7 +147,7 @@ class _WelcomePage extends StatelessWidget {
           Container(
             width: 200,
             height: 200,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               color: AppColors.learningSecondary,
               shape: BoxShape.circle,
             ),
@@ -237,7 +234,7 @@ class _NameInputPage extends StatelessWidget {
               color: Colors.white,
               borderRadius: AppSpacing.radiusLg,
               border: Border.all(
-                color: AppColors.learningPrimary.withOpacity(0.5),
+                color: AppColors.learningPrimary.withValues(alpha: 0.5),
                 width: 3,
               ),
             ),

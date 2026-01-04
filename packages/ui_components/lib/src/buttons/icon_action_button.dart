@@ -127,8 +127,9 @@ class ForwardButton extends StatelessWidget {
 }
 
 /// A close/dismiss button.
-class CloseButton extends StatelessWidget {
-  const CloseButton({
+/// Named AppCloseButton to avoid conflict with Flutter's CloseButton.
+class AppCloseButton extends StatelessWidget {
+  const AppCloseButton({
     super.key,
     this.onTap,
     this.color,

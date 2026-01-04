@@ -13,13 +13,25 @@ class LearningApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final hasCompletedOnboarding = ref.watch(hasCompletedOnboardingProvider);
+    final hasCompletedOnboardingAsync = ref.watch(hasCompletedOnboardingProvider);
 
-    return MaterialApp.router(
-      title: 'まなびアプリ',
-      debugShowCheckedModeBanner: false,
-      theme: AppTheme.learningApp,
-      routerConfig: _createRouter(hasCompletedOnboarding),
+    return hasCompletedOnboardingAsync.when(
+      data: (hasCompletedOnboarding) => MaterialApp.router(
+        title: 'まなびアプリ',
+        debugShowCheckedModeBanner: false,
+        theme: AppTheme.learning(),
+        routerConfig: _createRouter(hasCompletedOnboarding),
+      ),
+      loading: () => MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: AppTheme.learning(),
+        home: const Scaffold(body: Center(child: CircularProgressIndicator())),
+      ),
+      error: (error, stack) => MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: AppTheme.learning(),
+        home: Scaffold(body: Center(child: Text('Error: $error'))),
+      ),
     );
   }
 

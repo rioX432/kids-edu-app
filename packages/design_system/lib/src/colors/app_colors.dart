@@ -105,6 +105,60 @@ abstract final class AppColors {
   static const Color bookNightText = Color(0xFFE8E8F0);
 
   // ============================================
+  // Night Mode Aliases (for picture book app)
+  // ============================================
+
+  /// Night mode background alias
+  static const Color nightBackground = bookNightBackground;
+
+  /// Night mode surface alias
+  static const Color nightSurface = bookNightSurface;
+
+  /// Night mode accent
+  static const Color nightAccent = bookNightPrimary;
+
+  /// Night mode primary text
+  static const Color nightTextPrimary = bookNightText;
+
+  /// Night mode secondary text
+  static const Color nightTextSecondary = Color(0xFFB0B0C0);
+
+  /// Picture book accent alias
+  static const Color pictureBookAccent = bookPrimary;
+
+  // ============================================
+  // Reward Colors
+  // ============================================
+
+  /// Gold color for rewards/stars
+  static const Color rewardGold = Color(0xFFFFD700);
+
+  /// Silver color for rewards
+  static const Color rewardSilver = Color(0xFFC0C0C0);
+
+  // ============================================
+  // Character Type Colors
+  // ============================================
+
+  /// Fox character color
+  static const Color characterFox = Color(0xFFFF9F6E);
+
+  /// Bear character color
+  static const Color characterBear = Color(0xFF8B4513);
+
+  /// Rabbit character color
+  static const Color characterRabbit = Color(0xFFFFB6C1);
+
+  /// Penguin character color
+  static const Color characterPenguin = Color(0xFF4A90E2);
+
+  /// Cat character color
+  static const Color characterCat = Color(0xFFFFD93D);
+
+  /// Dog character color
+  static const Color characterDog = Color(0xFFC9A0DC);
+
+  // ============================================
   // Semantic Colors
   // ============================================
 

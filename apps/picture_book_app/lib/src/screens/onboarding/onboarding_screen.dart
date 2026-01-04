@@ -50,14 +50,11 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen> {
   Future<void> _completeOnboarding() async {
     if (_selectedCharacter == null || _userName.isEmpty) return;
 
-    final profileRepo = ref.read(profileRepositoryProvider);
-    final profile = await profileRepo.createProfile(
-      name: _userName,
-      avatarId: _selectedCharacter!.name,
-    );
+    final profileRepo = await ref.read(profileRepositoryProvider.future);
+    final profile = await profileRepo.create(name: _userName);
 
-    final charRepo = ref.read(characterRepositoryProvider);
-    await charRepo.createCharacter(
+    final charRepo = await ref.read(characterRepositoryProvider.future);
+    await charRepo.create(
       profileId: profile.id,
       type: _selectedCharacter!,
       name: _characterName.isNotEmpty
@@ -144,7 +141,7 @@ class _WelcomePage extends StatelessWidget {
             decoration: BoxDecoration(
               gradient: RadialGradient(
                 colors: [
-                  AppColors.nightAccent.withOpacity(0.3),
+                  AppColors.nightAccent.withValues(alpha: 0.3),
                   AppColors.nightBackground,
                 ],
               ),
@@ -225,7 +222,7 @@ class _NameInputPage extends StatelessWidget {
               color: AppColors.nightSurface,
               borderRadius: AppSpacing.radiusLg,
               border: Border.all(
-                color: AppColors.nightAccent.withOpacity(0.5),
+                color: AppColors.nightAccent.withValues(alpha: 0.5),
                 width: 3,
               ),
             ),
@@ -239,7 +236,7 @@ class _NameInputPage extends StatelessWidget {
               decoration: InputDecoration(
                 hintText: 'なまえ',
                 hintStyle: AppTypography.headlineMedium.copyWith(
-                  color: AppColors.nightTextSecondary.withOpacity(0.5),
+                  color: AppColors.nightTextSecondary.withValues(alpha: 0.5),
                 ),
                 border: InputBorder.none,
               ),
@@ -323,7 +320,7 @@ class _CharacterSelectPage extends StatelessWidget {
                 color: AppColors.nightSurface,
                 borderRadius: AppSpacing.radiusLg,
                 border: Border.all(
-                  color: AppColors.nightTextSecondary.withOpacity(0.3),
+                  color: AppColors.nightTextSecondary.withValues(alpha: 0.3),
                   width: 2,
                 ),
               ),
@@ -337,7 +334,7 @@ class _CharacterSelectPage extends StatelessWidget {
                 decoration: InputDecoration(
                   hintText: CharacterTypes.fromType(selectedCharacter!).displayNameJa,
                   hintStyle: AppTypography.bodyLarge.copyWith(
-                    color: AppColors.nightTextSecondary.withOpacity(0.5),
+                    color: AppColors.nightTextSecondary.withValues(alpha: 0.5),
                   ),
                   border: InputBorder.none,
                 ),

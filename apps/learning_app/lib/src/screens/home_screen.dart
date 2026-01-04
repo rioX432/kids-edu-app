@@ -90,7 +90,7 @@ class HomeScreen extends ConsumerWidget {
                 vertical: AppSpacing.sm,
               ),
               decoration: BoxDecoration(
-                color: AppColors.rewardGold.withOpacity(0.2),
+                color: AppColors.rewardGold.withValues(alpha: 0.2),
                 borderRadius: AppSpacing.radiusLg,
                 border: Border.all(
                   color: AppColors.rewardGold,
@@ -119,7 +119,8 @@ class HomeScreen extends ConsumerWidget {
   }
 
   Widget _buildCharacterSection(Character character) {
-    final info = CharacterTypes.fromType(character.type);
+    final info = character.typeInfo ?? CharacterTypes.fox;
+    final characterType = info.type;
 
     return Container(
       padding: AppSpacing.insetXl,
@@ -128,13 +129,13 @@ class HomeScreen extends ConsumerWidget {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            info.color.withOpacity(0.2),
-            info.color.withOpacity(0.1),
+            info.color.withValues(alpha: 0.2),
+            info.color.withValues(alpha: 0.1),
           ],
         ),
         borderRadius: AppSpacing.radiusXxl,
         border: Border.all(
-          color: info.color.withOpacity(0.3),
+          color: info.color.withValues(alpha: 0.3),
           width: 3,
         ),
       ),
@@ -142,7 +143,7 @@ class HomeScreen extends ConsumerWidget {
         children: [
           // Animated character
           AnimatedCharacterAvatar(
-            characterType: character.type,
+            characterType: characterType,
             emotion: CharacterEmotion.happy,
             size: CharacterAvatarSize.extraLarge,
           ),
@@ -150,7 +151,7 @@ class HomeScreen extends ConsumerWidget {
 
           // Character name
           Text(
-            character.name,
+            character.displayName,
             style: AppTypography.headlineMedium.copyWith(
               color: AppColors.textPrimaryLight,
             ),
@@ -179,13 +180,13 @@ class HomeScreen extends ConsumerWidget {
 
           // XP progress
           LinearStepProgress(
-            progress: character.xp / character.xpForNextLevel,
+            progress: character.experiencePoints / character.xpForNextLevel,
             progressColor: info.color,
             showPercentage: false,
           ),
           const VGap.xs(),
           Text(
-            'あと ${character.xpForNextLevel - character.xp} XP でレベルアップ！',
+            'あと ${character.xpForNextLevel - character.experiencePoints} XP でレベルアップ！',
             style: AppTypography.caption.copyWith(
               color: AppColors.textSecondaryLight,
             ),
@@ -269,12 +270,12 @@ class _ActivityCard extends StatelessWidget {
           color: Colors.white,
           borderRadius: AppSpacing.radiusXl,
           border: Border.all(
-            color: color.withOpacity(0.3),
+            color: color.withValues(alpha: 0.3),
             width: 3,
           ),
           boxShadow: [
             BoxShadow(
-              color: color.withOpacity(0.1),
+              color: color.withValues(alpha: 0.1),
               blurRadius: 8,
               offset: const Offset(0, 4),
             ),
@@ -286,7 +287,7 @@ class _ActivityCard extends StatelessWidget {
               width: 64,
               height: 64,
               decoration: BoxDecoration(
-                color: color.withOpacity(0.2),
+                color: color.withValues(alpha: 0.2),
                 borderRadius: AppSpacing.radiusLg,
               ),
               alignment: Alignment.center,

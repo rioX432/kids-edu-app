@@ -26,12 +26,13 @@ void main() async {
   );
 
   // Initialize Hive storage
-  await HiveStorageService.initialize();
+  final storageService = HiveStorageService();
+  await storageService.init();
 
   // Initialize audio manager with night mode
   final audioManager = AudioManager();
-  await audioManager.initialize();
-  audioManager.setNightMode(true);
+  await audioManager.init();
+  await audioManager.enableNightMode();
 
   runApp(
     ProviderScope(

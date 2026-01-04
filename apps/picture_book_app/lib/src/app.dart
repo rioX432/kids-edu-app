@@ -13,13 +13,25 @@ class PictureBookApp extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final hasCompletedOnboarding = ref.watch(hasCompletedOnboardingProvider);
+    final hasCompletedOnboardingAsync = ref.watch(hasCompletedOnboardingProvider);
 
-    return MaterialApp.router(
-      title: 'えほんアプリ',
-      debugShowCheckedModeBanner: false,
-      theme: AppTheme.pictureBookApp, // Uses night mode theme
-      routerConfig: _createRouter(hasCompletedOnboarding),
+    return hasCompletedOnboardingAsync.when(
+      data: (hasCompletedOnboarding) => MaterialApp.router(
+        title: 'えほんアプリ',
+        debugShowCheckedModeBanner: false,
+        theme: AppTheme.pictureBook(nightMode: true),
+        routerConfig: _createRouter(hasCompletedOnboarding),
+      ),
+      loading: () => MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: AppTheme.pictureBook(nightMode: true),
+        home: const Scaffold(body: Center(child: CircularProgressIndicator())),
+      ),
+      error: (error, stack) => MaterialApp(
+        debugShowCheckedModeBanner: false,
+        theme: AppTheme.pictureBook(nightMode: true),
+        home: Scaffold(body: Center(child: Text('Error: $error'))),
+      ),
     );
   }
 

@@ -114,7 +114,7 @@ class HomeScreen extends ConsumerWidget {
 
         // Character avatar
         CharacterAvatar(
-          characterType: character.type,
+          characterType: character.typeInfo?.type ?? CharacterType.fox,
           emotion: CharacterEmotion.sleeping,
           size: CharacterAvatarSize.medium,
         ),
@@ -123,12 +123,12 @@ class HomeScreen extends ConsumerWidget {
   }
 
   Widget _buildCharacterGreeting(Character character) {
-    final info = CharacterTypes.fromType(character.type);
+    final characterType = character.typeInfo?.type ?? CharacterType.fox;
 
     return Container(
       padding: AppSpacing.insetLg,
       decoration: BoxDecoration(
-        gradient: LinearGradient(
+        gradient: const LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
@@ -138,14 +138,14 @@ class HomeScreen extends ConsumerWidget {
         ),
         borderRadius: AppSpacing.radiusXl,
         border: Border.all(
-          color: AppColors.nightAccent.withOpacity(0.3),
+          color: AppColors.nightAccent.withValues(alpha: 0.3),
           width: 2,
         ),
       ),
       child: Row(
         children: [
           AnimatedCharacterAvatar(
-            characterType: character.type,
+            characterType: characterType,
             emotion: CharacterEmotion.happy,
             size: CharacterAvatarSize.large,
           ),
@@ -155,7 +155,7 @@ class HomeScreen extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  'こんばんは、${character.name}だよ！',
+                  'こんばんは、${character.displayName}だよ！',
                   style: AppTypography.headlineSmall.copyWith(
                     color: AppColors.nightTextPrimary,
                   ),
@@ -231,13 +231,13 @@ class HomeScreen extends ConsumerWidget {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              AppColors.pictureBookAccent.withOpacity(0.3),
-              AppColors.nightAccent.withOpacity(0.2),
+              AppColors.pictureBookAccent.withValues(alpha: 0.3),
+              AppColors.nightAccent.withValues(alpha: 0.2),
             ],
           ),
           borderRadius: AppSpacing.radiusXl,
           border: Border.all(
-            color: AppColors.pictureBookAccent.withOpacity(0.5),
+            color: AppColors.pictureBookAccent.withValues(alpha: 0.5),
             width: 2,
           ),
         ),
@@ -247,7 +247,7 @@ class HomeScreen extends ConsumerWidget {
               width: 64,
               height: 64,
               decoration: BoxDecoration(
-                color: AppColors.pictureBookAccent.withOpacity(0.3),
+                color: AppColors.pictureBookAccent.withValues(alpha: 0.3),
                 borderRadius: AppSpacing.radiusLg,
               ),
               alignment: Alignment.center,
@@ -320,18 +320,18 @@ class _BookCard extends StatelessWidget {
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,
             colors: [
-              color.withOpacity(0.3),
+              color.withValues(alpha: 0.3),
               AppColors.nightSurface,
             ],
           ),
           borderRadius: AppSpacing.radiusLg,
           border: Border.all(
-            color: color.withOpacity(0.5),
+            color: color.withValues(alpha: 0.5),
             width: 2,
           ),
           boxShadow: [
             BoxShadow(
-              color: color.withOpacity(0.2),
+              color: color.withValues(alpha: 0.2),
               blurRadius: 8,
               offset: const Offset(0, 4),
             ),
@@ -344,7 +344,7 @@ class _BookCard extends StatelessWidget {
               width: 80,
               height: 80,
               decoration: BoxDecoration(
-                color: color.withOpacity(0.2),
+                color: color.withValues(alpha: 0.2),
                 borderRadius: AppSpacing.radiusMd,
               ),
               alignment: Alignment.center,

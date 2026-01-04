@@ -104,6 +104,9 @@ abstract final class AppSpacing {
   /// Extra large radius (24px)
   static const double radiusXlValue = 24.0;
 
+  /// Extra extra large radius (32px)
+  static const double radiusXxlValue = 32.0;
+
   /// Full circle
   static const double radiusFullValue = 999.0;
 
@@ -125,6 +128,11 @@ abstract final class AppSpacing {
   /// Extra large border radius
   static const BorderRadius radiusXl = BorderRadius.all(
     Radius.circular(radiusXlValue),
+  );
+
+  /// Extra extra large border radius
+  static const BorderRadius radiusXxl = BorderRadius.all(
+    Radius.circular(radiusXxlValue),
   );
 
   /// Full circular border radius

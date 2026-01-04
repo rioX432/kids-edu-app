@@ -72,7 +72,7 @@ class _ParentGateModalState extends State<ParentGateModal>
     super.initState();
     _parentGateService = ParentGateService();
     _holdController = AnimationController(
-      duration: _parentGateService.requiredHoldDuration,
+      duration: _parentGateService.holdDuration,
       vsync: this,
     );
 
@@ -96,7 +96,7 @@ class _ParentGateModalState extends State<ParentGateModal>
     final answerInt = int.tryParse(_answer);
     if (answerInt == null) return;
 
-    if (_parentGateService.verifyAnswer(_mathProblem!, answerInt)) {
+    if (_parentGateService.verify(_mathProblem!, answerInt)) {
       widget.onVerified();
     } else {
       setState(() {
@@ -157,7 +157,7 @@ class _ParentGateModalState extends State<ParentGateModal>
                         color: AppColors.textPrimaryLight,
                       ),
                     ),
-                    CloseButton(onTap: widget.onCancel),
+                    AppCloseButton(onTap: widget.onCancel),
                   ],
                 ),
                 const VGap.lg(),
@@ -275,7 +275,7 @@ class _ParentGateModalState extends State<ParentGateModal>
             ),
           ),
           child: Text(
-            _mathProblem!.questionText,
+            _mathProblem!.displayText,
             style: AppTypography.headlineLarge.copyWith(
               color: AppColors.textPrimaryLight,
             ),

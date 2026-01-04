@@ -116,7 +116,7 @@ abstract final class AppTheme {
       ),
 
       // Card
-      cardTheme: CardTheme(
+      cardTheme: CardThemeData(
         color: surface,
         elevation: 2,
         shape: RoundedRectangleBorder(
@@ -198,7 +198,7 @@ abstract final class AppTheme {
       ),
 
       // Dialog
-      dialogTheme: DialogTheme(
+      dialogTheme: DialogThemeData(
         backgroundColor: surface,
         elevation: 8,
         shape: RoundedRectangleBorder(

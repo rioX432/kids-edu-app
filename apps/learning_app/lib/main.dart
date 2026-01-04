@@ -26,11 +26,12 @@ void main() async {
   );
 
   // Initialize Hive storage
-  await HiveStorageService.initialize();
+  final storageService = HiveStorageService();
+  await storageService.init();
 
   // Initialize audio manager
   final audioManager = AudioManager();
-  await audioManager.initialize();
+  await audioManager.init();
 
   runApp(
     ProviderScope(
