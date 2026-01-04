@@ -1,0 +1,53 @@
+name: learning_app
+description: Kids educational learning app with fun activities.
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+  flutter: '>=3.10.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # Project packages
+  design_system:
+    path: ../../packages/design_system
+  core:
+    path: ../../packages/core
+  ui_components:
+    path: ../../packages/ui_components
+
+  # State management
+  flutter_riverpod: ^2.4.0
+  riverpod_annotation: ^2.3.0
+
+  # Utilities
+  go_router: ^13.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+  riverpod_generator: ^2.3.0
+  build_runner: ^2.4.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+    - assets/audio/
+
+  fonts:
+    - family: MPlusRounded1c
+      fonts:
+        - asset: ../../packages/design_system/fonts/MPLUSRounded1c-Regular.ttf
+          weight: 400
+        - asset: ../../packages/design_system/fonts/MPLUSRounded1c-Medium.ttf
+          weight: 500
+        - asset: ../../packages/design_system/fonts/MPLUSRounded1c-Bold.ttf
+          weight: 700
+        - asset: ../../packages/design_system/fonts/MPLUSRounded1c-ExtraBold.ttf
+          weight: 800

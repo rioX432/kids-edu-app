@@ -1,0 +1,65 @@
+name: kyoiku
+repository: https://github.com/your-username/kyoiku
+
+packages:
+  - packages/*
+  - apps/*
+
+command:
+  bootstrap:
+    usePubspecOverrides: true
+
+scripts:
+  # Analysis
+  analyze:
+    run: melos exec -- flutter analyze
+    description: Run flutter analyze in all packages
+
+  # Testing
+  test:
+    run: melos exec -- flutter test
+    description: Run tests in all packages
+    packageFilters:
+      dirExists: test
+
+  # Code generation
+  generate:
+    run: melos exec -- dart run build_runner build --delete-conflicting-outputs
+    description: Run build_runner in all packages
+    packageFilters:
+      dependsOn: build_runner
+
+  # Clean
+  clean:
+    run: melos exec -- flutter clean
+    description: Clean all packages
+
+  # Format
+  format:
+    run: melos exec -- dart format .
+    description: Format code in all packages
+
+  # Get dependencies
+  get:
+    run: melos exec -- flutter pub get
+    description: Get dependencies for all packages
+
+  # Run learning app
+  run:learning:
+    run: cd apps/learning_app && flutter run
+    description: Run the learning app
+
+  # Run picture book app
+  run:book:
+    run: cd apps/picture_book_app && flutter run
+    description: Run the picture book app
+
+  # Build APK for learning app
+  build:learning:apk:
+    run: cd apps/learning_app && flutter build apk
+    description: Build APK for learning app
+
+  # Build APK for picture book app
+  build:book:apk:
+    run: cd apps/picture_book_app && flutter build apk
+    description: Build APK for picture book app
