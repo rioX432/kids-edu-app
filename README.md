@@ -153,10 +153,14 @@ packages/animations/
     ├── animations.dart
     └── src/
         ├── rive/           # Rive統合・State Machine制御
-        ├── transitions/    # カスタムページ遷移
+        ├── transitions/    # カスタムページ遷移（雲、虹ワイプなど）
         ├── effects/        # コンフェッティ・パーティクル
         ├── living_ui/      # 呼吸アニメ・目の追従
-        └── physics/        # 物理演算ボタン
+        ├── physics/        # 物理演算ボタン
+        ├── backgrounds/    # インタラクティブ背景（空、雲、動物）
+        ├── rewards/        # リワード演出（飛ぶシール）
+        ├── micro/          # マイクロインタラクション（花成長、音階タップ）
+        └── progress/       # あおむしプログレスなど
 ```
 
 #### 技術選定: Rive
@@ -172,16 +176,61 @@ packages/animations/
 
 #### 提供コンポーネント
 
+**ページ遷移:**
 | コンポーネント | 用途 |
 |---------------|------|
 | `CloudTransitionPage` | 雲がもくもく画面遷移（学習アプリ） |
 | `BookTurnTransitionPage` | 絵本ページめくり遷移（絵本アプリ） |
+| `StarBurstTransitionPage` | 星バースト遷移（お祝い） |
+| `RainbowWipeTransitionPage` | 虹が画面を横切る遷移 |
+| `RainbowBurstTransitionPage` | 虹が中央から広がる遷移 |
+
+**エフェクト:**
+| コンポーネント | 用途 |
+|---------------|------|
 | `ConfettiEffect` | コンフェッティお祝い演出 |
 | `ParticleTapEffect` | タップ時パーティクル（花・星・ハート等） |
-| `BreathingWidget` | 呼吸アニメーション（ボタン・キャラ） |
+
+**リビングUI:**
+| コンポーネント | 用途 |
+|---------------|------|
+| `BreathingWidget` | 呼吸アニメーション（5段階: subtle〜dramatic） |
 | `EyeFollower` | 目がきょろきょろ追従 |
+| `IdleWiggleWidget` | 注目を引く揺れアニメーション |
+
+**物理演算:**
+| コンポーネント | 用途 |
+|---------------|------|
 | `SquishyButton` | 物理演算ぷるぷるボタン |
 | `JellyContainer` | ゆらゆらコンテナ |
+
+**インタラクティブ背景:**
+| コンポーネント | 用途 |
+|---------------|------|
+| `AnimatedSkyBackground` | 動く空背景（雲、太陽、星、昼夜切替） |
+| `PeekABooCreature` | ひょっこり顔を出す動物（ウサギ、リス、鳥など） |
+
+**リワード演出:**
+| コンポーネント | 用途 |
+|---------------|------|
+| `FlyingSticker` | シールが飛んでコレクションに入る演出 |
+| `StickerCelebration` | 複数シールの連続飛行演出 |
+| `AnimatedSticker` | 星・ハート・花・虹・王冠などのシール |
+
+**マイクロインタラクション:**
+| コンポーネント | 用途 |
+|---------------|------|
+| `SeedGrowthEffect` | タップで種→花が成長（正解演出） |
+| `MusicalTapWidget` | 音階タップ（ドレミ視覚フィードバック） |
+| `MusicalColorRow` | カラフル音階ボタン行 |
+| `RichTouchFeedback` | 縮小＋グロー＋触覚フィードバック |
+| `BouncyTapFeedback` | ポヨンと弾むタップ |
+| `HapticHelper` | 触覚フィードバックパターン |
+
+**プログレス:**
+| コンポーネント | 用途 |
+|---------------|------|
+| `CaterpillarProgress` | あおむしが進む進捗バー |
 
 #### 使用例
 
