@@ -58,6 +58,16 @@ class LearningApp extends ConsumerWidget {
             key: state.pageKey,
             child: const AnimationDemoScreen(),
           ),
+          routes: [
+            GoRoute(
+              path: 'rainbow-demo',
+              pageBuilder: (context, state) => RainbowWipeTransitionPage(
+                key: state.pageKey,
+                direction: RainbowDirection.leftToRight,
+                child: const RainbowDemoScreen(),
+              ),
+            ),
+          ],
         ),
         // Add more routes as needed
       ],
