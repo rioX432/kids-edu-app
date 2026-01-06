@@ -14,7 +14,8 @@
 ├── packages/                    # Flutter共通パッケージ
 │   ├── design_system/           # デザイントークン・テーマ
 │   ├── core/                    # コアロジック
-│   └── ui_components/           # 共通UIコンポーネント
+│   ├── ui_components/           # 共通UIコンポーネント
+│   └── animations/              # リッチアニメーション（Rive）
 └── apps/                        # アプリケーション
     ├── learning_app/            # 学習アプリ
     └── picture_book_app/        # 絵本アプリ
@@ -142,6 +143,114 @@ packages/ui_components/
         └── common/          # TapFeedback, FadeInWidget, BounceInWidget
 ```
 
+### animations
+
+リッチアニメーションシステム。子供向けUI/UXを「ゲームのように楽しい」体験にする。
+
+```
+packages/animations/
+└── lib/
+    ├── animations.dart
+    └── src/
+        ├── rive/           # Rive統合・State Machine制御
+        ├── transitions/    # カスタムページ遷移
+        ├── effects/        # コンフェッティ・パーティクル
+        ├── living_ui/      # 呼吸アニメ・目の追従
+        └── physics/        # 物理演算ボタン
+```
+
+#### 技術選定: Rive
+
+| 観点 | Rive | Spine | Live2D |
+|------|------|-------|--------|
+| Flutter対応 | ✅ 公式 | ✅ 公式 | ❌ なし |
+| ファイルサイズ | 10-15x小さい | 中程度 | 大きい |
+| State Machine | ✅ ビジュアル編集 | ❌ コード必要 | △ |
+| キャラ + UI統一 | ✅ | △ | ❌ |
+
+**結論**: Riveに統一（キャラクター + UI/UXエフェクト両方）
+
+#### 提供コンポーネント
+
+| コンポーネント | 用途 |
+|---------------|------|
+| `CloudTransitionPage` | 雲がもくもく画面遷移（学習アプリ） |
+| `BookTurnTransitionPage` | 絵本ページめくり遷移（絵本アプリ） |
+| `ConfettiEffect` | コンフェッティお祝い演出 |
+| `ParticleTapEffect` | タップ時パーティクル（花・星・ハート等） |
+| `BreathingWidget` | 呼吸アニメーション（ボタン・キャラ） |
+| `EyeFollower` | 目がきょろきょろ追従 |
+| `SquishyButton` | 物理演算ぷるぷるボタン |
+| `JellyContainer` | ゆらゆらコンテナ |
+
+#### 使用例
+
+```dart
+import 'package:animations/animations.dart';
+
+// ページ遷移
+GoRoute(
+  path: '/lesson/:id',
+  pageBuilder: (context, state) => CloudTransitionPage(
+    child: LessonScreen(id: state.pathParameters['id']!),
+  ),
+)
+
+// タップパーティクル
+ParticleTapEffect(
+  type: TapParticleType.flowers,
+  onTap: () => handleTap(),
+  child: PrimaryButton(text: 'タップ！'),
+)
+
+// コンフェッティ
+ConfettiOverlay.show(context);
+
+// 呼吸アニメーション
+BreathingWidget(
+  intensity: BreathingIntensity.subtle,
+  child: CharacterAvatar(...),
+)
+
+// 目の追従
+EyeFollower(
+  eyeSize: 32,
+  eyeSpacing: 24,
+)
+
+// ぷるぷるボタン
+SquishyButton(
+  onPressed: () => handlePress(),
+  child: MyButtonContent(),
+)
+```
+
+#### アニメーション用デザイントークン
+
+```dart
+// 追加されたトークン（AppSpacing）
+static const Duration durationCelebration;  // 1200ms - お祝い
+static const Duration durationTransition;   // 400ms - 画面遷移
+static const Duration durationSpring;       // 600ms - 物理演算
+static const Duration durationBounce;       // 450ms - バウンス
+static const Duration durationBreathing;    // 3s - 呼吸
+static const Duration durationIdle;         // 5s - アイドル
+
+static const double touchTargetKids;        // 64px
+static const double touchTargetKidsLarge;   // 80px
+```
+
+#### 必要なRiveアセット（要制作）
+
+| アセット | ファイル名 | 優先度 |
+|---------|-----------|-------|
+| タップパーティクル | `tap_particles.riv` | P0 |
+| ボタン変形 | `button_squish.riv` | P0 |
+| コンフェッティ | `confetti.riv` | P0 |
+| 雲遷移 | `cloud_transition.riv` | P1 |
+| 目の追従 | `eye_follower.riv` | P1 |
+| キャラクター | `character_{type}.riv` | P2 |
+
 ---
 
 ## アプリケーション
@@ -249,9 +358,11 @@ apps/picture_book_app/
 
 | フェーズ | 技術 | 備考 |
 | -------- | ---- | ---- |
-| MVP | スプライト + 表情3種 + 口パク + 揺れ | 最速、軽い |
-| 次フェーズ | Spine | 量産しやすい |
-| 高品質路線 | Live2D | 制作コスト増 |
+| MVP | Rive + State Machine | UI/UXと統一、軽量 |
+| 次フェーズ | Rive 高度化 | 複雑なインタラクション |
+| 高品質路線 | Spine（必要時） | 複雑なスケルタルアニメ向け |
+
+**注**: Live2Dは Flutter公式サポートがないため非推奨。Riveに統一することで、UIエフェクトとキャラクターを同じツールで制作可能。
 
 ### キャラクターの反応設計
 
@@ -414,8 +525,24 @@ CIでビルド
 | design_system パッケージ | ✅ 完了 |
 | core パッケージ | ✅ 完了 |
 | ui_components パッケージ | ✅ 完了 |
+| animations パッケージ | ✅ 完了 |
 | アプリプロジェクト雛形 | ✅ 完了 |
 | Hive アダプター生成 | ⚠️ ローカル実行必要 |
+
+### Phase 1.5: アニメーション基盤 ✅ 完了
+
+| タスク | 状態 |
+| ------ | ---- |
+| animations パッケージ作成 | ✅ 完了 |
+| Rive統合（KidsRiveController） | ✅ 完了 |
+| ページ遷移アニメーション | ✅ 完了 |
+| コンフェッティエフェクト | ✅ 完了 |
+| タップパーティクル | ✅ 完了 |
+| 呼吸アニメーション | ✅ 完了 |
+| 目の追従 | ✅ 完了 |
+| 物理演算ボタン | ✅ 完了 |
+| デザイントークン拡張 | ✅ 完了 |
+| Riveアセット制作 | 🔲 未着手（デザイナー待ち）|
 
 ### Phase 2: 仕様確定
 

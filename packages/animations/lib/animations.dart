@@ -6,6 +6,7 @@
 /// - Tap feedback effects (particles, physics)
 /// - Celebration effects (confetti, star rain)
 /// - Living UI elements (eye follower, breathing)
+/// - Animated progress indicators
 library animations;
 
 // Rive integration
@@ -25,3 +26,6 @@ export 'src/living_ui/eye_follower.dart';
 
 // Physics-based widgets
 export 'src/physics/squishy_button.dart';
+
+// Progress indicators
+export 'src/progress/caterpillar_progress.dart';

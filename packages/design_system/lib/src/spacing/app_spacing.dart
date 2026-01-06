@@ -199,6 +199,38 @@ abstract final class AppSpacing {
 
   /// Very slow animation (800ms) - Celebrations
   static const Duration durationVerySlow = Duration(milliseconds: 800);
+
+  // ============================================
+  // Extended Animation Durations (Kids UI/UX)
+  // ============================================
+
+  /// Celebration/reward animations (1200ms)
+  static const Duration durationCelebration = Duration(milliseconds: 1200);
+
+  /// Page transition animations (400ms)
+  static const Duration durationTransition = Duration(milliseconds: 400);
+
+  /// Spring/physics-based animations (600ms)
+  static const Duration durationSpring = Duration(milliseconds: 600);
+
+  /// Bounce animations (450ms)
+  static const Duration durationBounce = Duration(milliseconds: 450);
+
+  /// Breathing/idle animations (3 seconds)
+  static const Duration durationBreathing = Duration(seconds: 3);
+
+  /// Idle wiggle animations (5 seconds delay)
+  static const Duration durationIdle = Duration(seconds: 5);
+
+  // ============================================
+  // Kids-Specific Touch Targets
+  // ============================================
+
+  /// Kids touch target (64px) - Larger than WCAG minimum
+  static const double touchTargetKids = 64.0;
+
+  /// Kids large touch target (80px) - Primary actions
+  static const double touchTargetKidsLarge = 80.0;
 }
 
 /// Gap widget for consistent spacing
