@@ -62,23 +62,28 @@ class HomeScreen extends ConsumerWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         // Greeting
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              'こんにちは！',
-              style: AppTypography.headlineSmall.copyWith(
-                color: AppColors.textSecondaryLight,
+        Flexible(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                'こんにちは！',
+                style: AppTypography.headlineSmall.copyWith(
+                  color: AppColors.textSecondaryLight,
+                ),
+                overflow: TextOverflow.ellipsis,
               ),
-            ),
-            Text(
-              'きょうも がんばろう！',
-              style: AppTypography.headlineMedium.copyWith(
-                color: AppColors.textPrimaryLight,
+              Text(
+                'きょうも がんばろう！',
+                style: AppTypography.headlineMedium.copyWith(
+                  color: AppColors.textPrimaryLight,
+                ),
+                overflow: TextOverflow.ellipsis,
               ),
-            ),
-          ],
+            ],
+          ),
         ),
+        const SizedBox(width: 8),
 
         // Streak badge
         streakAsync.when(

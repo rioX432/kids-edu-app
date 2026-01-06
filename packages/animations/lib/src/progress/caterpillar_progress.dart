@@ -221,36 +221,39 @@ class _CaterpillarProgressState extends State<CaterpillarProgress>
               ),
             );
           },
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              // Floating butterfly
-              AnimatedBuilder(
-                animation: _bobController,
-                builder: (context, child) {
-                  final offset = reduceMotion
-                      ? 0.0
-                      : math.sin(_bobController.value * math.pi * 2) * 5;
-                  return Transform.translate(
-                    offset: Offset(0, offset),
-                    child: child,
-                  );
-                },
-                child: const Text(
-                  '🦋',
-                  style: TextStyle(fontSize: 56),
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                // Floating butterfly
+                AnimatedBuilder(
+                  animation: _bobController,
+                  builder: (context, child) {
+                    final offset = reduceMotion
+                        ? 0.0
+                        : math.sin(_bobController.value * math.pi * 2) * 5;
+                    return Transform.translate(
+                      offset: Offset(0, offset),
+                      child: child,
+                    );
+                  },
+                  child: const Text(
+                    '🦋',
+                    style: TextStyle(fontSize: 48),
+                  ),
                 ),
-              ),
-              const SizedBox(height: 8),
-              Text(
-                'Complete!',
-                style: TextStyle(
-                  fontSize: 24,
-                  fontWeight: FontWeight.bold,
-                  color: widget.caterpillarColor,
+                const SizedBox(height: 4),
+                Text(
+                  'Complete!',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: widget.caterpillarColor,
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
       ),
