@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 /// A fun, animated caterpillar progress indicator for kids.
 ///
@@ -124,7 +125,12 @@ class _CaterpillarProgressState extends State<CaterpillarProgress>
     // Trigger butterfly transformation
     if (widget.progress >= 1.0 && _previousProgress < 1.0) {
       _butterflyController.forward();
-      widget.onComplete?.call();
+      // Defer callback to avoid setState during build
+      if (widget.onComplete != null) {
+        SchedulerBinding.instance.addPostFrameCallback((_) {
+          widget.onComplete?.call();
+        });
+      }
     }
 
     _previousProgress = widget.progress;

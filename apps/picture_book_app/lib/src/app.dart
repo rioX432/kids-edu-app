@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:design_system/design_system.dart';
 import 'package:go_router/go_router.dart';
+import 'package:animations/animations.dart';
 
 import 'screens/home_screen.dart';
 import 'screens/onboarding/onboarding_screen.dart';
@@ -45,7 +46,10 @@ class PictureBookApp extends ConsumerWidget {
         ),
         GoRoute(
           path: '/home',
-          builder: (context, state) => const HomeScreen(),
+          pageBuilder: (context, state) => BookTurnTransitionPage(
+            key: state.pageKey,
+            child: const HomeScreen(),
+          ),
         ),
         // Add more routes as needed (story list, story reader, etc.)
       ],

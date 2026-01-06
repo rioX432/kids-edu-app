@@ -18,6 +18,8 @@ dependencies:
     path: ../../packages/core
   ui_components:
     path: ../../packages/ui_components
+  animations:
+    path: ../../packages/animations
 
   # State management
   flutter_riverpod: ^2.4.0

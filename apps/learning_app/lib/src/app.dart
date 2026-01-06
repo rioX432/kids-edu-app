@@ -2,9 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:design_system/design_system.dart';
 import 'package:go_router/go_router.dart';
+import 'package:animations/animations.dart';
 
 import 'screens/home_screen.dart';
 import 'screens/onboarding/onboarding_screen.dart';
+import 'screens/animation_demo_screen.dart';
 import 'providers/app_state_provider.dart';
 
 /// The main Learning App widget.
@@ -45,7 +47,17 @@ class LearningApp extends ConsumerWidget {
         ),
         GoRoute(
           path: '/home',
-          builder: (context, state) => const HomeScreen(),
+          pageBuilder: (context, state) => CloudTransitionPage(
+            key: state.pageKey,
+            child: const HomeScreen(),
+          ),
+        ),
+        GoRoute(
+          path: '/animation-demo',
+          pageBuilder: (context, state) => StarBurstTransitionPage(
+            key: state.pageKey,
+            child: const AnimationDemoScreen(),
+          ),
         ),
         // Add more routes as needed
       ],

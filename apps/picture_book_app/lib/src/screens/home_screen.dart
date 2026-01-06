@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:design_system/design_system.dart';
 import 'package:ui_components/ui_components.dart';
 import 'package:core/core.dart';
+import 'package:animations/animations.dart';
 
 import '../providers/app_state_provider.dart';
 
@@ -144,10 +145,13 @@ class HomeScreen extends ConsumerWidget {
       ),
       child: Row(
         children: [
-          AnimatedCharacterAvatar(
-            characterType: characterType,
-            emotion: CharacterEmotion.happy,
-            size: CharacterAvatarSize.large,
+          BreathingWidget(
+            intensity: BreathingIntensity.subtle,
+            child: AnimatedCharacterAvatar(
+              characterType: characterType,
+              emotion: CharacterEmotion.happy,
+              size: CharacterAvatarSize.large,
+            ),
           ),
           const HGap.lg(),
           Expanded(
@@ -220,68 +224,72 @@ class HomeScreen extends ConsumerWidget {
   }
 
   Widget _buildBedtimeModeCard() {
-    return TapFeedback(
-      onTap: () {
-        // TODO: Start bedtime mode with timer
-      },
-      child: Container(
-        padding: AppSpacing.insetLg,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              AppColors.pictureBookAccent.withValues(alpha: 0.3),
-              AppColors.nightAccent.withValues(alpha: 0.2),
+    return IdleWiggleWidget(
+      wiggleAngle: 0.01,
+      wiggleDuration: const Duration(seconds: 4),
+      child: SquishyButton(
+        onPressed: () {
+          // TODO: Start bedtime mode with timer
+        },
+        child: Container(
+          padding: AppSpacing.insetLg,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                AppColors.pictureBookAccent.withValues(alpha: 0.3),
+                AppColors.nightAccent.withValues(alpha: 0.2),
+              ],
+            ),
+            borderRadius: AppSpacing.radiusXl,
+            border: Border.all(
+              color: AppColors.pictureBookAccent.withValues(alpha: 0.5),
+              width: 2,
+            ),
+          ),
+          child: Row(
+            children: [
+              Container(
+                width: 64,
+                height: 64,
+                decoration: BoxDecoration(
+                  color: AppColors.pictureBookAccent.withValues(alpha: 0.3),
+                  borderRadius: AppSpacing.radiusLg,
+                ),
+                alignment: Alignment.center,
+                child: const Text(
+                  '😴',
+                  style: TextStyle(fontSize: 36),
+                ),
+              ),
+              const HGap.lg(),
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'おやすみモード',
+                      style: AppTypography.headlineSmall.copyWith(
+                        color: AppColors.nightTextPrimary,
+                      ),
+                    ),
+                    Text(
+                      'タイマーつきで よみきかせ',
+                      style: AppTypography.bodyMedium.copyWith(
+                        color: AppColors.nightTextSecondary,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Icon(
+                Icons.bedtime_rounded,
+                color: AppColors.pictureBookAccent,
+                size: 32,
+              ),
             ],
           ),
-          borderRadius: AppSpacing.radiusXl,
-          border: Border.all(
-            color: AppColors.pictureBookAccent.withValues(alpha: 0.5),
-            width: 2,
-          ),
-        ),
-        child: Row(
-          children: [
-            Container(
-              width: 64,
-              height: 64,
-              decoration: BoxDecoration(
-                color: AppColors.pictureBookAccent.withValues(alpha: 0.3),
-                borderRadius: AppSpacing.radiusLg,
-              ),
-              alignment: Alignment.center,
-              child: const Text(
-                '😴',
-                style: TextStyle(fontSize: 36),
-              ),
-            ),
-            const HGap.lg(),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'おやすみモード',
-                    style: AppTypography.headlineSmall.copyWith(
-                      color: AppColors.nightTextPrimary,
-                    ),
-                  ),
-                  Text(
-                    'タイマーつきで よみきかせ',
-                    style: AppTypography.bodyMedium.copyWith(
-                      color: AppColors.nightTextSecondary,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Icon(
-              Icons.bedtime_rounded,
-              color: AppColors.pictureBookAccent,
-              size: 32,
-            ),
-          ],
         ),
       ),
     );
@@ -310,61 +318,64 @@ class _BookCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TapFeedback(
-      onTap: onTap,
-      child: Container(
-        width: 140,
-        padding: AppSpacing.insetMd,
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              color.withValues(alpha: 0.3),
-              AppColors.nightSurface,
+    return SquishyButton(
+      onPressed: onTap,
+      child: JellyContainer(
+        wobbleOnTap: false, // SquishyButton handles the tap
+        child: Container(
+          width: 140,
+          padding: AppSpacing.insetMd,
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                color.withValues(alpha: 0.3),
+                AppColors.nightSurface,
+              ],
+            ),
+            borderRadius: AppSpacing.radiusLg,
+            border: Border.all(
+              color: color.withValues(alpha: 0.5),
+              width: 2,
+            ),
+            boxShadow: [
+              BoxShadow(
+                color: color.withValues(alpha: 0.2),
+                blurRadius: 8,
+                offset: const Offset(0, 4),
+              ),
             ],
           ),
-          borderRadius: AppSpacing.radiusLg,
-          border: Border.all(
-            color: color.withValues(alpha: 0.5),
-            width: 2,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Container(
+                width: 80,
+                height: 80,
+                decoration: BoxDecoration(
+                  color: color.withValues(alpha: 0.2),
+                  borderRadius: AppSpacing.radiusMd,
+                ),
+                alignment: Alignment.center,
+                child: Text(
+                  emoji,
+                  style: const TextStyle(fontSize: 48),
+                ),
+              ),
+              const VGap.md(),
+              Text(
+                title,
+                style: AppTypography.bodyMedium.copyWith(
+                  color: AppColors.nightTextPrimary,
+                  fontWeight: FontWeight.w600,
+                ),
+                textAlign: TextAlign.center,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ],
           ),
-          boxShadow: [
-            BoxShadow(
-              color: color.withValues(alpha: 0.2),
-              blurRadius: 8,
-              offset: const Offset(0, 4),
-            ),
-          ],
-        ),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Container(
-              width: 80,
-              height: 80,
-              decoration: BoxDecoration(
-                color: color.withValues(alpha: 0.2),
-                borderRadius: AppSpacing.radiusMd,
-              ),
-              alignment: Alignment.center,
-              child: Text(
-                emoji,
-                style: const TextStyle(fontSize: 48),
-              ),
-            ),
-            const VGap.md(),
-            Text(
-              title,
-              style: AppTypography.bodyMedium.copyWith(
-                color: AppColors.nightTextPrimary,
-                fontWeight: FontWeight.w600,
-              ),
-              textAlign: TextAlign.center,
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
-            ),
-          ],
         ),
       ),
     );

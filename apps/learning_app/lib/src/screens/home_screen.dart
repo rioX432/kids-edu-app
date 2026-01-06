@@ -3,6 +3,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:design_system/design_system.dart';
 import 'package:ui_components/ui_components.dart';
 import 'package:core/core.dart';
+import 'package:animations/animations.dart';
+import 'package:go_router/go_router.dart';
 
 import '../providers/app_state_provider.dart';
 
@@ -141,11 +143,14 @@ class HomeScreen extends ConsumerWidget {
       ),
       child: Column(
         children: [
-          // Animated character
-          AnimatedCharacterAvatar(
-            characterType: characterType,
-            emotion: CharacterEmotion.happy,
-            size: CharacterAvatarSize.extraLarge,
+          // Animated character with breathing animation
+          BreathingWidget(
+            intensity: BreathingIntensity.subtle,
+            child: AnimatedCharacterAvatar(
+              characterType: characterType,
+              emotion: CharacterEmotion.happy,
+              size: CharacterAvatarSize.extraLarge,
+            ),
           ),
           const VGap.md(),
 
@@ -240,6 +245,25 @@ class HomeScreen extends ConsumerWidget {
             // TODO: Navigate to color learning
           },
         ),
+        const VGap.xl(),
+
+        // Animation Demo button
+        Text(
+          '✨ アニメーション デモ',
+          style: AppTypography.headlineSmall.copyWith(
+            color: AppColors.textPrimaryLight,
+          ),
+        ),
+        const VGap.md(),
+        _ActivityCard(
+          emoji: '🎬',
+          title: 'アニメ',
+          subtitle: 'アニメーションを みてみよう',
+          color: AppColors.learningTertiary,
+          onTap: () {
+            context.push('/animation-demo');
+          },
+        ),
       ],
     );
   }
@@ -262,8 +286,8 @@ class _ActivityCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return TapFeedback(
-      onTap: onTap,
+    return SquishyButton(
+      onPressed: onTap,
       child: Container(
         padding: AppSpacing.insetLg,
         decoration: BoxDecoration(

@@ -73,7 +73,7 @@ class ParticleTapEffect extends StatefulWidget {
 }
 
 class _ParticleTapEffectState extends State<ParticleTapEffect>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   AnimationController? _controller;
   Offset? _tapPosition;
 
@@ -93,6 +93,8 @@ class _ParticleTapEffectState extends State<ParticleTapEffect>
       _tapPosition = details.localPosition;
     });
 
+    // Stop and reset the previous controller if animating
+    _controller?.stop();
     _controller?.dispose();
     _controller = AnimationController(
       vsync: this,
@@ -104,6 +106,8 @@ class _ParticleTapEffectState extends State<ParticleTapEffect>
         setState(() {
           _tapPosition = null;
         });
+        _controller?.dispose();
+        _controller = null;
       }
     });
 
