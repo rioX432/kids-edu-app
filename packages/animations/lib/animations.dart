@@ -2,10 +2,11 @@
 ///
 /// This package provides:
 /// - Rive integration for complex animations
-/// - Custom page transitions (cloud sweep, book turn)
+/// - Custom page transitions (cloud sweep, book turn, rainbow wipe)
 /// - Tap feedback effects (particles, physics)
-/// - Celebration effects (confetti, star rain)
-/// - Living UI elements (eye follower, breathing)
+/// - Celebration effects (confetti, star rain, sticker collection)
+/// - Living UI elements (eye follower, breathing, peek-a-boo creatures)
+/// - Interactive backgrounds (animated sky, floating elements)
 /// - Animated progress indicators
 library animations;
 
@@ -15,6 +16,7 @@ export 'src/rive/rive_asset_paths.dart';
 
 // Page transitions
 export 'src/transitions/kids_page_transitions.dart';
+export 'src/transitions/rainbow_wipe_transition.dart';
 
 // Effects
 export 'src/effects/confetti_effect.dart';
@@ -29,3 +31,15 @@ export 'src/physics/squishy_button.dart';
 
 // Progress indicators
 export 'src/progress/caterpillar_progress.dart';
+
+// Backgrounds
+export 'src/backgrounds/animated_sky_background.dart';
+export 'src/backgrounds/peek_a_boo_creature.dart';
+
+// Rewards
+export 'src/rewards/flying_sticker.dart';
+
+// Micro-interactions
+export 'src/micro/seed_growth_effect.dart';
+export 'src/micro/musical_tap_widget.dart';
+export 'src/micro/touch_feedback.dart';

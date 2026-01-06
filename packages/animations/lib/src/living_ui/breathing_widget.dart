@@ -2,14 +2,20 @@ import 'package:flutter/material.dart';
 
 /// Intensity level for breathing animation.
 enum BreathingIntensity {
-  /// Very subtle (1% scale variation)
+  /// Very subtle (1% scale variation) - for background elements
   subtle,
 
-  /// Normal (2% scale variation)
+  /// Normal (3% scale variation) - default for most UI
   normal,
 
-  /// Pronounced (5% scale variation)
+  /// Pronounced (6% scale variation) - for characters and buttons
   pronounced,
+
+  /// Bouncy (10% scale variation) - for attention-grabbing elements
+  bouncy,
+
+  /// Dramatic (15% scale variation) - for celebrations and rewards
+  dramatic,
 }
 
 /// A widget that adds a gentle "breathing" animation to its child.
@@ -64,16 +70,28 @@ class _BreathingWidgetState extends State<BreathingWidget>
 
   double get _scaleAmount => switch (widget.intensity) {
         BreathingIntensity.subtle => 0.01,
-        BreathingIntensity.normal => 0.02,
-        BreathingIntensity.pronounced => 0.05,
+        BreathingIntensity.normal => 0.03,
+        BreathingIntensity.pronounced => 0.06,
+        BreathingIntensity.bouncy => 0.10,
+        BreathingIntensity.dramatic => 0.15,
       };
 
   Duration get _duration =>
       widget.duration ??
       switch (widget.intensity) {
         BreathingIntensity.subtle => const Duration(seconds: 4),
-        BreathingIntensity.normal => const Duration(seconds: 3),
+        BreathingIntensity.normal => const Duration(milliseconds: 2500),
         BreathingIntensity.pronounced => const Duration(seconds: 2),
+        BreathingIntensity.bouncy => const Duration(milliseconds: 1500),
+        BreathingIntensity.dramatic => const Duration(milliseconds: 1200),
+      };
+
+  Curve get _curve => switch (widget.intensity) {
+        BreathingIntensity.subtle => Curves.easeInOut,
+        BreathingIntensity.normal => Curves.easeInOut,
+        BreathingIntensity.pronounced => Curves.easeInOutCubic,
+        BreathingIntensity.bouncy => Curves.elasticInOut,
+        BreathingIntensity.dramatic => Curves.bounceInOut,
       };
 
   @override
@@ -93,7 +111,7 @@ class _BreathingWidgetState extends State<BreathingWidget>
       end: 1.0 + _scaleAmount,
     ).animate(CurvedAnimation(
       parent: _controller,
-      curve: Curves.easeInOut,
+      curve: _curve,
     ));
 
     if (widget.enabled) {
