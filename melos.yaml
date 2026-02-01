@@ -1,5 +1,5 @@
 name: kyoiku
-repository: https://github.com/omooooori/kids-edu-app
+repository: https://github.com/rioX432/kids-edu-app
 
 packages:
   - packages/*
