@@ -1,135 +1,135 @@
-# 子供向け教育アプリ プロジェクト
+# Kids Educational App
 
-遊びながら自然と賢くなる、子供向けアプリ群。
+A suite of apps for children that help them learn naturally through play.
 
 ---
 
-## プロジェクト構成
+## Project Structure
 
 ```text
-教育/
-├── README.md                    # このファイル
-├── melos.yaml                   # Melos モノレポ設定
-├── kids-educational-app-design/ # V0で生成したデザインシステム（参考）
-├── packages/                    # Flutter共通パッケージ
-│   ├── design_system/           # デザイントークン・テーマ
-│   ├── core/                    # コアロジック
-│   ├── ui_components/           # 共通UIコンポーネント
-│   └── animations/              # リッチアニメーション（Rive）
-└── apps/                        # アプリケーション
-    ├── learning_app/            # 学習アプリ
-    └── picture_book_app/        # 絵本アプリ
+kids-edu-app/
+├── README.md                    # This file
+├── melos.yaml                   # Melos monorepo configuration
+├── kids-educational-app-design/ # Design system generated with V0 (reference)
+├── packages/                    # Shared Flutter packages
+│   ├── design_system/           # Design tokens & themes
+│   ├── core/                    # Core logic
+│   ├── ui_components/           # Shared UI components
+│   └── animations/              # Rich animations (Rive)
+└── apps/                        # Applications
+    ├── learning_app/            # Learning app
+    └── picture_book_app/        # Picture book app
 ```
 
 ---
 
-## アプリ一覧
+## Apps
 
-| アプリ | タイプ | 利用シーン | 利用時間 |
-| ------ | ------ | ---------- | -------- |
-| 学習アプリ | 能動型 | 朝〜昼 | 3〜7分 |
-| 絵本アプリ | 受動型 | 寝る前 | 10〜15分 |
+| App | Type | Use Case | Duration |
+| --- | ---- | -------- | -------- |
+| Learning App | Active | Morning–Afternoon | 3–7 min |
+| Picture Book App | Passive | Before bed | 10–15 min |
 
 ---
 
-## コンセプト
+## Concept
 
-**「勉強」ではなく「遊び」として、子供が自然と賢くなるアプリ**
+**An app where kids get smarter naturally through "play", not "study"**
 
-- 子供は勉強が嫌い → 勉強アプリと認識された瞬間に負け
-- YouTube/TikTok に代わる存在 → 親が安心して与えられる
-- 両アプリでキャラクター・世界観を共有
+- Kids hate studying → The moment they perceive it as a study app, you lose
+- A replacement for YouTube/TikTok → Something parents can trust
+- Both apps share the same characters and world
 
 ```text
-従来: 問題 → 解答 → 正解/不正解
-本アプリ: 遊び → 行動 → 世界が変わる（裏で学習評価）
+Traditional: Problem → Answer → Correct/Incorrect
+This App:    Play → Action → The world changes (learning is evaluated behind the scenes)
 ```
 
 ---
 
-## 対象ユーザー
+## Target Users
 
-| 項目 | 内容 |
-| ---- | ---- |
-| 対象年齢 | 3〜5歳（未就学児） |
-| 主な利用者 | 子供本人 |
-| 購買決定者 | 親 |
-
----
-
-## 技術スタック
-
-| 項目 | 決定 |
-| ---- | ---- |
-| フレームワーク | Flutter |
-| プラットフォーム | Android / iOS |
-| ネットワーク | 原則オフライン |
-| 認証 | なし（端末内プロファイル） |
-| リポジトリ構成 | モノレポ（Melos） |
-| 状態管理 | Riverpod |
-| ローカルDB | Hive |
-| ルーティング | go_router |
-| アプリ内AI | 生成AIなし、適応ロジックのみ |
-
-### Flutter を選んだ理由
-
-- UIとロジックを1コードで両OS対応
-- 2Dアニメ、パララックス、パーティクル演出が強い
-- Spine / Live2D との連携も可能
-- 教育アプリとの相性が良い
-
-### 避けるもの
-
-- Unity（アプリサイズ、起動時間、統合コストが重い）
-- アプリ内キャラクター生成
-- アプリ内での生成AIリクエスト
-- アカウント認証・Auth
-- SNS共有
-- 広告SDK
+| Item | Details |
+| ---- | ------- |
+| Age Range | 3–5 years old (preschool) |
+| Primary Users | Children |
+| Purchase Decision | Parents |
 
 ---
 
-## 共通パッケージ
+## Tech Stack
+
+| Item | Choice |
+| ---- | ------ |
+| Framework | Flutter |
+| Platforms | Android / iOS |
+| Network | Primarily offline |
+| Auth | None (on-device profiles) |
+| Repository | Monorepo (Melos) |
+| State Management | Riverpod |
+| Local DB | Hive |
+| Routing | go_router |
+| In-App AI | No generative AI; adaptive logic only |
+
+### Why Flutter
+
+- Single codebase for both OS with unified UI and logic
+- Strong support for 2D animation, parallax, and particle effects
+- Integration with Spine / Live2D is possible
+- Great fit for educational apps
+
+### What We Avoid
+
+- Unity (heavy app size, slow startup, high integration cost)
+- In-app character generation
+- In-app generative AI requests
+- Account authentication / Auth
+- Social sharing
+- Ad SDKs
+
+---
+
+## Shared Packages
 
 ### design_system
 
-デザイントークン、タイポグラフィ、テーマを定義。
+Defines design tokens, typography, and themes.
 
 ```
 packages/design_system/
 └── lib/
     ├── design_system.dart
     └── src/
-        ├── colors/app_colors.dart       # カラートークン
-        ├── typography/app_typography.dart # タイポグラフィ（日本語対応）
-        ├── spacing/app_spacing.dart      # スペーシング・Radius・Gap
-        └── theme/app_theme.dart          # ThemeData統合
+        ├── colors/app_colors.dart        # Color tokens
+        ├── typography/app_typography.dart  # Typography (Japanese-ready)
+        ├── spacing/app_spacing.dart        # Spacing, radius, gaps
+        └── theme/app_theme.dart            # ThemeData integration
 ```
 
-**フォント選定:**
-- Display: M PLUS Rounded 1c（丸みがあって子供向け、日本語完全対応）
-- Body: Noto Sans JP（可読性が高い、日本語完全対応）
+**Font Selection:**
+- Display: M PLUS Rounded 1c (rounded & kid-friendly, full Japanese support)
+- Body: Noto Sans JP (high readability, full Japanese support)
 
 ### core
 
-キャラクター、ストリーク、報酬など共通ロジック。
+Shared logic for characters, streaks, rewards, etc.
 
 ```
 packages/core/
 └── lib/
     ├── core.dart
     └── src/
-        ├── character/       # キャラクター選択・成長・XP・レベル
-        ├── parent_gate/     # 親ゲート（3秒ホールド + 算数問題）
-        ├── storage/         # ローカルストレージ抽象化（Hive）
-        ├── streak/          # 連続日数管理・月次回復
-        ├── rewards/         # スタンプ帳・解放アイテム
-        └── audio/           # BGM/SE/ナレーション管理
+        ├── character/       # Character selection, growth, XP, levels
+        ├── parent_gate/     # Parent gate (3s hold + math problem)
+        ├── storage/         # Local storage abstraction (Hive)
+        ├── streak/          # Streak tracking, monthly recovery
+        ├── rewards/         # Stamp collection, unlockable items
+        └── audio/           # BGM / SFX / narration management
 ```
 
 ### ui_components
 
-共通UIウィジェット集。
+Shared UI widget library.
 
 ```
 packages/ui_components/
@@ -145,99 +145,99 @@ packages/ui_components/
 
 ### animations
 
-リッチアニメーションシステム。子供向けUI/UXを「ゲームのように楽しい」体験にする。
+Rich animation system that makes kid-friendly UI/UX feel "as fun as a game".
 
 ```
 packages/animations/
 └── lib/
     ├── animations.dart
     └── src/
-        ├── rive/           # Rive統合・State Machine制御
-        ├── transitions/    # カスタムページ遷移（雲、虹ワイプなど）
-        ├── effects/        # コンフェッティ・パーティクル
-        ├── living_ui/      # 呼吸アニメ・目の追従
-        ├── physics/        # 物理演算ボタン
-        ├── backgrounds/    # インタラクティブ背景（空、雲、動物）
-        ├── rewards/        # リワード演出（飛ぶシール）
-        ├── micro/          # マイクロインタラクション（花成長、音階タップ）
-        └── progress/       # あおむしプログレスなど
+        ├── rive/           # Rive integration & state machine control
+        ├── transitions/    # Custom page transitions (clouds, rainbow wipe, etc.)
+        ├── effects/        # Confetti & particles
+        ├── living_ui/      # Breathing animations, eye-following
+        ├── physics/        # Physics-based buttons
+        ├── backgrounds/    # Interactive backgrounds (sky, clouds, animals)
+        ├── rewards/        # Reward effects (flying stickers)
+        ├── micro/          # Micro-interactions (flower growth, musical taps)
+        └── progress/       # Caterpillar progress bar, etc.
 ```
 
-#### 技術選定: Rive
+#### Tech Choice: Rive
 
-| 観点 | Rive | Spine | Live2D |
-|------|------|-------|--------|
-| Flutter対応 | ✅ 公式 | ✅ 公式 | ❌ なし |
-| ファイルサイズ | 10-15x小さい | 中程度 | 大きい |
-| State Machine | ✅ ビジュアル編集 | ❌ コード必要 | △ |
-| キャラ + UI統一 | ✅ | △ | ❌ |
+| Aspect | Rive | Spine | Live2D |
+|--------|------|-------|--------|
+| Flutter Support | Official | Official | None |
+| File Size | 10–15x smaller | Medium | Large |
+| State Machine | Visual editor | Code required | Limited |
+| Character + UI unified | Yes | Partial | No |
 
-**結論**: Riveに統一（キャラクター + UI/UXエフェクト両方）
+**Conclusion**: Unified on Rive (for both characters and UI/UX effects)
 
-#### 提供コンポーネント
+#### Provided Components
 
-**ページ遷移:**
-| コンポーネント | 用途 |
-|---------------|------|
-| `CloudTransitionPage` | 雲がもくもく画面遷移（学習アプリ） |
-| `BookTurnTransitionPage` | 絵本ページめくり遷移（絵本アプリ） |
-| `StarBurstTransitionPage` | 星バースト遷移（お祝い） |
-| `RainbowWipeTransitionPage` | 虹が画面を横切る遷移 |
-| `RainbowBurstTransitionPage` | 虹が中央から広がる遷移 |
+**Page Transitions:**
+| Component | Purpose |
+|-----------|---------|
+| `CloudTransitionPage` | Cloud puff screen transition (learning app) |
+| `BookTurnTransitionPage` | Book page-turn transition (picture book app) |
+| `StarBurstTransitionPage` | Star burst transition (celebration) |
+| `RainbowWipeTransitionPage` | Rainbow wipes across the screen |
+| `RainbowBurstTransitionPage` | Rainbow expands from center |
 
-**エフェクト:**
-| コンポーネント | 用途 |
-|---------------|------|
-| `ConfettiEffect` | コンフェッティお祝い演出 |
-| `ParticleTapEffect` | タップ時パーティクル（花・星・ハート等） |
+**Effects:**
+| Component | Purpose |
+|-----------|---------|
+| `ConfettiEffect` | Confetti celebration effect |
+| `ParticleTapEffect` | Tap particles (flowers, stars, hearts, etc.) |
 
-**リビングUI:**
-| コンポーネント | 用途 |
-|---------------|------|
-| `BreathingWidget` | 呼吸アニメーション（5段階: subtle〜dramatic） |
-| `EyeFollower` | 目がきょろきょろ追従 |
-| `IdleWiggleWidget` | 注目を引く揺れアニメーション |
+**Living UI:**
+| Component | Purpose |
+|-----------|---------|
+| `BreathingWidget` | Breathing animation (5 levels: subtle–dramatic) |
+| `EyeFollower` | Eyes that follow user interaction |
+| `IdleWiggleWidget` | Attention-grabbing wiggle animation |
 
-**物理演算:**
-| コンポーネント | 用途 |
-|---------------|------|
-| `SquishyButton` | 物理演算ぷるぷるボタン |
-| `JellyContainer` | ゆらゆらコンテナ |
+**Physics:**
+| Component | Purpose |
+|-----------|---------|
+| `SquishyButton` | Physics-based squishy button |
+| `JellyContainer` | Jelly-like wobbling container |
 
-**インタラクティブ背景:**
-| コンポーネント | 用途 |
-|---------------|------|
-| `AnimatedSkyBackground` | 動く空背景（雲、太陽、星、昼夜切替） |
-| `PeekABooCreature` | ひょっこり顔を出す動物（ウサギ、リス、鳥など） |
+**Interactive Backgrounds:**
+| Component | Purpose |
+|-----------|---------|
+| `AnimatedSkyBackground` | Animated sky (clouds, sun, stars, day/night cycle) |
+| `PeekABooCreature` | Animals peeking in (rabbits, squirrels, birds, etc.) |
 
-**リワード演出:**
-| コンポーネント | 用途 |
-|---------------|------|
-| `FlyingSticker` | シールが飛んでコレクションに入る演出 |
-| `StickerCelebration` | 複数シールの連続飛行演出 |
-| `AnimatedSticker` | 星・ハート・花・虹・王冠などのシール |
+**Reward Effects:**
+| Component | Purpose |
+|-----------|---------|
+| `FlyingSticker` | Sticker flies into the collection |
+| `StickerCelebration` | Multiple stickers flying in sequence |
+| `AnimatedSticker` | Stars, hearts, flowers, rainbows, crowns, etc. |
 
-**マイクロインタラクション:**
-| コンポーネント | 用途 |
-|---------------|------|
-| `SeedGrowthEffect` | タップで種→花が成長（正解演出） |
-| `MusicalTapWidget` | 音階タップ（ドレミ視覚フィードバック） |
-| `MusicalColorRow` | カラフル音階ボタン行 |
-| `RichTouchFeedback` | 縮小＋グロー＋触覚フィードバック |
-| `BouncyTapFeedback` | ポヨンと弾むタップ |
-| `HapticHelper` | 触覚フィードバックパターン |
+**Micro-interactions:**
+| Component | Purpose |
+|-----------|---------|
+| `SeedGrowthEffect` | Tap to grow a seed into a flower (correct answer) |
+| `MusicalTapWidget` | Musical scale tap (do-re-mi visual feedback) |
+| `MusicalColorRow` | Colorful musical scale button row |
+| `RichTouchFeedback` | Shrink + glow + haptic feedback |
+| `BouncyTapFeedback` | Bouncy tap effect |
+| `HapticHelper` | Haptic feedback patterns |
 
-**プログレス:**
-| コンポーネント | 用途 |
-|---------------|------|
-| `CaterpillarProgress` | あおむしが進む進捗バー |
+**Progress:**
+| Component | Purpose |
+|-----------|---------|
+| `CaterpillarProgress` | Caterpillar crawling progress bar |
 
-#### 使用例
+#### Usage Examples
 
 ```dart
 import 'package:animations/animations.dart';
 
-// ページ遷移
+// Page transition
 GoRoute(
   path: '/lesson/:id',
   pageBuilder: (context, state) => CloudTransitionPage(
@@ -245,68 +245,68 @@ GoRoute(
   ),
 )
 
-// タップパーティクル
+// Tap particles
 ParticleTapEffect(
   type: TapParticleType.flowers,
   onTap: () => handleTap(),
-  child: PrimaryButton(text: 'タップ！'),
+  child: PrimaryButton(text: 'Tap!'),
 )
 
-// コンフェッティ
+// Confetti
 ConfettiOverlay.show(context);
 
-// 呼吸アニメーション
+// Breathing animation
 BreathingWidget(
   intensity: BreathingIntensity.subtle,
   child: CharacterAvatar(...),
 )
 
-// 目の追従
+// Eye following
 EyeFollower(
   eyeSize: 32,
   eyeSpacing: 24,
 )
 
-// ぷるぷるボタン
+// Squishy button
 SquishyButton(
   onPressed: () => handlePress(),
   child: MyButtonContent(),
 )
 ```
 
-#### アニメーション用デザイントークン
+#### Animation Design Tokens
 
 ```dart
-// 追加されたトークン（AppSpacing）
-static const Duration durationCelebration;  // 1200ms - お祝い
-static const Duration durationTransition;   // 400ms - 画面遷移
-static const Duration durationSpring;       // 600ms - 物理演算
-static const Duration durationBounce;       // 450ms - バウンス
-static const Duration durationBreathing;    // 3s - 呼吸
-static const Duration durationIdle;         // 5s - アイドル
+// Additional tokens (AppSpacing)
+static const Duration durationCelebration;  // 1200ms - celebration
+static const Duration durationTransition;   // 400ms - page transition
+static const Duration durationSpring;       // 600ms - physics
+static const Duration durationBounce;       // 450ms - bounce
+static const Duration durationBreathing;    // 3s - breathing
+static const Duration durationIdle;         // 5s - idle
 
 static const double touchTargetKids;        // 64px
 static const double touchTargetKidsLarge;   // 80px
 ```
 
-#### 必要なRiveアセット（要制作）
+#### Required Rive Assets (To Be Created)
 
-| アセット | ファイル名 | 優先度 |
-|---------|-----------|-------|
-| タップパーティクル | `tap_particles.riv` | P0 |
-| ボタン変形 | `button_squish.riv` | P0 |
-| コンフェッティ | `confetti.riv` | P0 |
-| 雲遷移 | `cloud_transition.riv` | P1 |
-| 目の追従 | `eye_follower.riv` | P1 |
-| キャラクター | `character_{type}.riv` | P2 |
+| Asset | Filename | Priority |
+|-------|----------|----------|
+| Tap particles | `tap_particles.riv` | P0 |
+| Button deformation | `button_squish.riv` | P0 |
+| Confetti | `confetti.riv` | P0 |
+| Cloud transition | `cloud_transition.riv` | P1 |
+| Eye following | `eye_follower.riv` | P1 |
+| Characters | `character_{type}.riv` | P2 |
 
 ---
 
-## アプリケーション
+## Applications
 
-### learning_app（学習アプリ）
+### learning_app (Learning App)
 
-能動型の学習アプリ。自分で操作して世界が変わる体験。
+An active learning app where kids interact and the world responds.
 
 ```
 apps/learning_app/
@@ -315,40 +315,40 @@ apps/learning_app/
 │   └── src/
 │       ├── app.dart
 │       ├── screens/         # HomeScreen, OnboardingScreen
-│       ├── widgets/         # アプリ固有ウィジェット
-│       └── providers/       # Riverpod プロバイダー
+│       ├── widgets/         # App-specific widgets
+│       └── providers/       # Riverpod providers
 └── assets/
     ├── images/
     └── audio/
 ```
 
-#### 学習コンテンツ
+#### Learning Content
 
-| 分野 | 内容 |
-| ---- | ---- |
-| 国語 | ひらがな認識（書き順より形の識別優先） |
-| 算数 | 数量感覚（1〜10）→ 足し算の直感 → 文章題ミニ版 |
-| 英語 | 音と単語（色、動物、挨拶）。読み書きは後回し |
-| 思考 | パターン、分類、順序、間違い探し |
-| 生活 | 時計の概念、曜日、季節 |
+| Subject | Content |
+| ------- | ------- |
+| Japanese | Hiragana recognition (shape identification over stroke order) |
+| Math | Number sense (1–10) → Addition intuition → Mini word problems |
+| English | Sound & words (colors, animals, greetings). Reading/writing deferred |
+| Thinking | Patterns, classification, sequences, spot-the-difference |
+| Daily Life | Clock concepts, days of the week, seasons |
 
-#### コンテンツ形式
+#### Content Formats
 
-- 3択問題
-- ドラッグ&ドロップ
-- なぞる
+- 3-choice questions
+- Drag & drop
+- Tracing
 
-#### 「勉強に見えない」設計例
+#### "Doesn't Feel Like Studying" Design Example
 
-**数量感覚（算数）:**
-- 画面にリンゴが落ちてくる
-- キャラが「どっちが多い？」と聞く
-- タップで選ぶ → 正解すると木が育つ、花が咲く
-- 子供の認識: お世話・ゲーム / 実際: 数量比較、数認識
+**Number Sense (Math):**
+- Apples fall onto the screen
+- The character asks "Which has more?"
+- Tap to choose → Correct answer makes a tree grow and flowers bloom
+- Child's perception: Caring for a garden / game — Actual: Quantity comparison, number recognition
 
-### picture_book_app（絵本アプリ）
+### picture_book_app (Picture Book App)
 
-受動型の読み聞かせアプリ。自分のキャラクターが語り部になる。
+A passive read-aloud app where your own character becomes the narrator.
 
 ```
 apps/picture_book_app/
@@ -357,140 +357,140 @@ apps/picture_book_app/
 │   └── src/
 │       ├── app.dart
 │       ├── screens/         # HomeScreen, OnboardingScreen
-│       ├── widgets/         # アプリ固有ウィジェット
-│       └── providers/       # Riverpod プロバイダー
+│       ├── widgets/         # App-specific widgets
+│       └── providers/       # Riverpod providers
 └── assets/
     ├── images/
     ├── audio/
     └── stories/
 ```
 
-#### 差別化ポイント
+#### Differentiation
 
-| YouTube/TikTok | 本アプリ |
+| YouTube/TikTok | This App |
 | -------------- | -------- |
-| 無限刺激 | 終わりがある |
-| 思考ゼロ | 物語を追う |
-| 消費 | 所有（自分のキャラ） |
-| 親が不安 | 親が安心 |
+| Infinite stimulation | Has an ending |
+| Zero thinking | Following a story |
+| Consumption | Ownership (your own character) |
+| Parents worry | Parents feel safe |
 
-#### 読み聞かせ体験
+#### Read-Aloud Experience
 
-| 機能 | 内容 |
-| ---- | ---- |
-| プロナレーション | 声優・ナレーターによる高品質朗読 |
-| テキスト同期 | カラオケ字幕形式で文字をハイライト |
-| 環境音・BGM | 森のシーンで小鳥のさえずり、怖い場面でどきどきBGM |
+| Feature | Details |
+| ------- | ------- |
+| Professional Narration | High-quality readings by voice actors & narrators |
+| Text Sync | Karaoke-style text highlighting |
+| Ambient Sound & BGM | Bird chirping in forest scenes, suspenseful BGM for tense moments |
 
-#### 利用シーン別モード
+#### Scene-Based Modes
 
-| モード | 特徴 |
-| ------ | ---- |
-| 寝かしつけモード | 画面暗転、静かな音声、自動停止 |
-| 通常モード | 明るい画面、インタラクション有効 |
-| オフラインモード | 車移動中など |
-
----
-
-## キャラクターシステム
-
-両アプリで同じキャラクター・世界観を共有する。
-
-### オンボーディングフロー
-
-1. 好きな動物を選ぶ（6〜8種）
-2. 色 or アクセサリを1つ選ぶ
-3. 「今日から一緒にがんばろう」→ 1分以内に体験開始
-4. 最初の体験は絶対に成功（100%達成できる難易度）
-
-### キャラクター技術
-
-| フェーズ | 技術 | 備考 |
-| -------- | ---- | ---- |
-| MVP | Rive + State Machine | UI/UXと統一、軽量 |
-| 次フェーズ | Rive 高度化 | 複雑なインタラクション |
-| 高品質路線 | Spine（必要時） | 複雑なスケルタルアニメ向け |
-
-**注**: Live2Dは Flutter公式サポートがないため非推奨。Riveに統一することで、UIエフェクトとキャラクターを同じツールで制作可能。
-
-### キャラクターの反応設計
-
-発話はテンプレ + パラメータ差し込み。LLM不要。
-
-| 状況 | 反応 |
-| ---- | ---- |
-| 正解・成功 | 褒める + 次へ |
-| ミス・失敗 | 1ヒント + やり直し |
-| 連続ミス | 難易度を落とす + "一緒にやろう"演出 |
+| Mode | Features |
+| ---- | -------- |
+| Bedtime Mode | Dimmed screen, quiet voice, auto-stop |
+| Normal Mode | Bright screen, interactions enabled |
+| Offline Mode | For car rides, etc. |
 
 ---
 
-## 親向け設計
+## Character System
 
-### 親ゲート
+Both apps share the same characters and world.
 
-- 方式: 長押し3秒 + 簡単計算（足し算）
-- 対象: 課金、設定変更、外部通信、データ削除
-- 実装: `packages/core/lib/src/parent_gate/` および `packages/ui_components/lib/src/modals/parent_gate_modal.dart`
+### Onboarding Flow
 
-### 親への訴求ポイント
+1. Choose a favorite animal (6–8 options)
+2. Pick a color or accessory
+3. "Let's do our best together from today!" → Start the experience within 1 minute
+4. First experience is always a success (100% achievable difficulty)
 
-- 通信しない（オフライン）
-- 課金しない（または親ゲート下のみ）
-- 会話は自由入力なし（安全）
-- 1日上限がある（依存防止）
-- 広告なし
+### Character Technology
 
-### 親画面で見せる情報
+| Phase | Technology | Notes |
+| ----- | ---------- | ----- |
+| MVP | Rive + State Machine | Unified with UI/UX, lightweight |
+| Next Phase | Advanced Rive | Complex interactions |
+| High Quality | Spine (if needed) | For complex skeletal animation |
 
-- 今日やった内容
-- 苦手・弱点
-- 学習/読書の進捗
+**Note**: Live2D is not recommended due to lack of official Flutter support. Unifying on Rive allows both UI effects and characters to be created with the same tool.
 
----
+### Character Reaction Design
 
-## ゲーミフィケーション
+Dialogue uses templates + parameter injection. No LLM required.
 
-### デイリーループ
-
-- デイリーミッション: 3〜5分
-- 連続記録（ストリーク）: 失敗しても救済1回
-- スタンプ帳: 30日で1枚完成
-
-### 成長要素
-
-- キャラ育成: 学習で経験値
-- 着せ替え: 報酬は「毎日」と「復習」で出る
-- コレクション: 動物図鑑、バッジ
-
-### 依存防止
-
-- 1日上限の報酬を設定
-- 夜間は控えめ演出
+| Situation | Reaction |
+| --------- | -------- |
+| Correct / Success | Praise + move to next |
+| Miss / Failure | 1 hint + retry |
+| Consecutive Misses | Lower difficulty + "Let's do it together" prompt |
 
 ---
 
-## コンテンツパイプライン
+## Parent-Facing Design
 
-### 全体フロー
+### Parent Gate
+
+- Method: 3-second long press + simple math (addition)
+- Scope: In-app purchases, settings, external communication, data deletion
+- Implementation: `packages/core/lib/src/parent_gate/` and `packages/ui_components/lib/src/modals/parent_gate_modal.dart`
+
+### Key Selling Points for Parents
+
+- No network communication (offline)
+- No surprise charges (or only behind parent gate)
+- No free-text input (safe)
+- Daily usage limit (prevents dependency)
+- No ads
+
+### Parent Dashboard Info
+
+- What the child did today
+- Weak areas
+- Learning / reading progress
+
+---
+
+## Gamification
+
+### Daily Loop
+
+- Daily missions: 3–5 minutes
+- Streak tracking: 1 recovery allowed on failure
+- Stamp collection: Complete one sheet in 30 days
+
+### Growth Elements
+
+- Character leveling: XP from learning
+- Dress-up: Rewards from daily play and review sessions
+- Collection: Animal encyclopedia, badges
+
+### Dependency Prevention
+
+- Capped daily rewards
+- Toned-down effects at night
+
+---
+
+## Content Pipeline
+
+### Overall Flow
 
 ```text
-学習要件定義（人間が作成）
+Define learning requirements (human-authored)
     ↓
-AI教材生成（社内CI/サーバー側）
+AI content generation (internal CI / server-side)
     ↓
-自動検証・正規化
+Automated validation & normalization
     ↓
-アセット化（JSON / 画像 / 音声）
+Convert to assets (JSON / images / audio)
     ↓
-アプリに同梱
+Bundle into the app
     ↓
-CIでビルド
+CI build
     ↓
-ストア公開
+Store release
 ```
 
-### 問題JSONスキーマ（学習アプリ）
+### Question JSON Schema (Learning App)
 
 ```json
 {
@@ -499,28 +499,28 @@ CIでビルド
   "unit": "addition",
   "level": 1,
   "question_type": "choice_3",
-  "prompt": "りんごが 2こ と 1こ あります。ぜんぶで？",
+  "prompt": "There are 2 apples and 1 apple. How many in total?",
   "choices": [2, 3, 4],
   "answer": 3,
-  "hints": ["2と1を たすよ"],
+  "hints": ["Add 2 and 1"],
   "tags": ["counting", "add_small"],
   "estimated_time_sec": 6
 }
 ```
 
-### 絵本JSONスキーマ（絵本アプリ）
+### Story JSON Schema (Picture Book App)
 
 ```json
 {
   "id": "story_friendship_001",
-  "title": "なかよしの もり",
+  "title": "The Forest of Friendship",
   "theme": ["friendship", "cooperation"],
   "age_range": [3, 5],
   "duration_min": 8,
   "pages": [
     {
       "page_number": 1,
-      "text": "むかしむかし、あるところに もりが ありました。",
+      "text": "Once upon a time, there was a forest.",
       "image": "page_001.png",
       "audio": "page_001.mp3",
       "bgm": "forest_ambient.mp3",
@@ -539,145 +539,145 @@ CIでビルド
 }
 ```
 
-### 自動検証ルール（共通）
+### Automated Validation Rules (Shared)
 
-- JSONスキーマ一致
-- 語彙レベルチェック（5歳NGワード禁止）
-- 問題文/本文の長さ制限
-- 重複コンテンツの排除
+- JSON schema conformance
+- Vocabulary level check (no words inappropriate for 5-year-olds)
+- Text length limits for questions / story text
+- Duplicate content detection
 
-**1つでも落ちたらCI失敗**
-
----
-
-## 収益モデル
-
-| モデル | 評価 | 備考 |
-| ------ | ---- | ---- |
-| 広告 | ❌ | 子供向けで論外 |
-| サブスク | △ | 親の心理ハードル高い、オフラインと相性悪い |
-| 買い切り | ◎ | ¥1,500-2,000、「教育アプリとして安全」が刺さる |
-| DLC拡張 | ○ | 将来的に追加パック販売 |
-
-初期は **買い切り一択**
+**CI fails if any check fails**
 
 ---
 
-## 開発フェーズ
+## Revenue Model
 
-### Phase 1: 基盤構築 ✅ 完了
+| Model | Rating | Notes |
+| ----- | ------ | ----- |
+| Ads | No | Unacceptable for kids |
+| Subscription | Maybe | High psychological barrier for parents, poor offline compatibility |
+| One-time Purchase | Best | ~$10–15, "safe educational app" is a strong pitch |
+| DLC Expansion | Good | Additional packs in the future |
 
-| タスク | 状態 |
-| ------ | ---- |
-| リポジトリ構成決定（モノレポ） | ✅ 完了 |
-| デザインシステム（V0生成） | ✅ 完了 |
-| design_system パッケージ | ✅ 完了 |
-| core パッケージ | ✅ 完了 |
-| ui_components パッケージ | ✅ 完了 |
-| animations パッケージ | ✅ 完了 |
-| アプリプロジェクト雛形 | ✅ 完了 |
-| Hive アダプター生成 | ⚠️ ローカル実行必要 |
-
-### Phase 1.5: アニメーション基盤 ✅ 完了
-
-| タスク | 状態 |
-| ------ | ---- |
-| animations パッケージ作成 | ✅ 完了 |
-| Rive統合（KidsRiveController） | ✅ 完了 |
-| ページ遷移アニメーション | ✅ 完了 |
-| コンフェッティエフェクト | ✅ 完了 |
-| タップパーティクル | ✅ 完了 |
-| 呼吸アニメーション | ✅ 完了 |
-| 目の追従 | ✅ 完了 |
-| 物理演算ボタン | ✅ 完了 |
-| デザイントークン拡張 | ✅ 完了 |
-| Riveアセット制作 | 🔲 未着手（デザイナー待ち）|
-
-### Phase 2: 仕様確定
-
-| タスク | 状態 |
-| ------ | ---- |
-| 問題JSONスキーマ確定 | 🔲 未着手 |
-| 絵本JSONスキーマ確定 | 🔲 未着手 |
-| UI画面遷移設計 | 🔲 未着手 |
-| 難易度調整ロジック設計 | 🔲 未着手 |
-
-### Phase 3: MVP開発
-
-| タスク | 状態 |
-| ------ | ---- |
-| 学習アプリ：クイズ画面 | 🔲 未着手 |
-| 絵本アプリ：読書画面 | 🔲 未着手 |
-| キャラアセット制作 | 🔲 未着手 |
-| 音声アセット制作 | 🔲 未着手 |
+Initial launch: **one-time purchase only**
 
 ---
 
-## セットアップ
+## Development Phases
+
+### Phase 1: Foundation — Done
+
+| Task | Status |
+| ---- | ------ |
+| Repository structure (monorepo) | Done |
+| Design system (V0-generated) | Done |
+| design_system package | Done |
+| core package | Done |
+| ui_components package | Done |
+| animations package | Done |
+| App project scaffolding | Done |
+| Hive adapter generation | Needs local execution |
+
+### Phase 1.5: Animation Foundation — Done
+
+| Task | Status |
+| ---- | ------ |
+| animations package creation | Done |
+| Rive integration (KidsRiveController) | Done |
+| Page transition animations | Done |
+| Confetti effect | Done |
+| Tap particles | Done |
+| Breathing animation | Done |
+| Eye following | Done |
+| Physics-based buttons | Done |
+| Design token extension | Done |
+| Rive asset creation | Not started (waiting for designer) |
+
+### Phase 2: Specification Finalization
+
+| Task | Status |
+| ---- | ------ |
+| Question JSON schema finalization | Not started |
+| Story JSON schema finalization | Not started |
+| UI screen flow design | Not started |
+| Difficulty adjustment logic design | Not started |
+
+### Phase 3: MVP Development
+
+| Task | Status |
+| ---- | ------ |
+| Learning app: Quiz screen | Not started |
+| Picture book app: Reader screen | Not started |
+| Character asset creation | Not started |
+| Audio asset creation | Not started |
+
+---
+
+## Setup
 
 ```bash
-# Melos インストール
+# Install Melos
 dart pub global activate melos
 
-# 依存関係インストール（全パッケージ）
+# Install dependencies (all packages)
 melos bootstrap
 
-# Hiveアダプター生成（core）
+# Generate Hive adapters (core)
 melos generate
-# または
+# Or manually:
 cd packages/core && dart run build_runner build --delete-conflicting-outputs
 ```
 
 ---
 
-## 開発コマンド（Melos）
+## Development Commands (Melos)
 
 ```bash
-# 全パッケージの静的解析
+# Static analysis for all packages
 melos analyze
 
-# 全パッケージのテスト実行
+# Run tests for all packages
 melos test
 
-# コード生成（build_runner）
+# Code generation (build_runner)
 melos generate
 
-# コードフォーマット
+# Code formatting
 melos format
 
-# 学習アプリ実行
+# Run learning app
 melos run:learning
 
-# 絵本アプリ実行
+# Run picture book app
 melos run:book
 
-# APKビルド
+# Build APK
 melos build:learning:apk
 melos build:book:apk
 ```
 
 ---
 
-## 使い方
+## Usage
 
 ### design_system
 
 ```dart
 import 'package:design_system/design_system.dart';
 
-// テーマ適用
+// Apply theme
 MaterialApp(
-  theme: AppTheme.learningApp,        // 学習アプリ
-  // theme: AppTheme.pictureBookApp,  // 絵本アプリ（ナイトモード）
+  theme: AppTheme.learningApp,        // Learning app
+  // theme: AppTheme.pictureBookApp,  // Picture book app (night mode)
 )
 
-// カラー使用
+// Use colors
 Container(color: AppColors.learningPrimary)
 
-// タイポグラフィ使用
-Text('こんにちは', style: AppTypography.headlineLarge)
+// Use typography
+Text('Hello', style: AppTypography.headlineLarge)
 
-// スペーシング使用
+// Use spacing
 Column(children: [
   Text('A'),
   const VGap.md(),  // 16px
@@ -690,33 +690,33 @@ Column(children: [
 ```dart
 import 'package:core/core.dart';
 
-// 初期化
+// Initialize
 await HiveStorageService.initialize();
 final storage = HiveStorageService();
 
-// プロファイル作成
+// Create profile
 final profileRepo = ProfileRepository(storage);
-final profile = await profileRepo.createProfile(name: 'たろう');
+final profile = await profileRepo.createProfile(name: 'Taro');
 
-// キャラクター選択
+// Select character
 final charRepo = CharacterRepository(storage);
 final character = await charRepo.createCharacter(
   profileId: profile.id,
   type: CharacterType.fox,
-  name: 'フォックン',
+  name: 'Foxxie',
 );
 
-// ストリーク管理
+// Streak management
 final streakManager = StreakManager(storage);
 final result = await streakManager.recordActivity(profile.id);
-print('現在のストリーク: ${result.currentStreak}日');
+print('Current streak: ${result.currentStreak} days');
 
-// 親ゲート
+// Parent gate
 final parentGate = ParentGateService();
 final problem = parentGate.generateProblem();
 print(problem.questionText); // "7 + 5 = ?"
 if (parentGate.verifyAnswer(problem, 12)) {
-  print('アンロック成功');
+  print('Unlock successful');
 }
 ```
 
@@ -725,129 +725,129 @@ if (parentGate.verifyAnswer(problem, 12)) {
 ```dart
 import 'package:ui_components/ui_components.dart';
 
-// プライマリボタン
+// Primary button
 PrimaryButton(
-  text: 'つぎへ',
+  text: 'Next',
   icon: Icons.arrow_forward_rounded,
   onTap: () {},
 )
 
-// クイズ選択ボタン
+// Quiz choice button
 ChoiceButton(
-  text: 'りんご',
+  text: 'Apple',
   icon: '🍎',
   state: ChoiceButtonState.correct,
   onTap: () {},
 )
 
-// キャラクターアバター
+// Character avatar
 CharacterAvatar(
   characterType: CharacterType.fox,
   emotion: CharacterEmotion.happy,
   size: CharacterAvatarSize.large,
 )
 
-// スター進捗
+// Star progress
 StarProgress(
   current: 2,
   total: 3,
 )
 
-// 報酬モーダル
+// Reward modal
 await RewardModal.show(
   context,
-  title: 'すごい！',
-  message: 'スタンプゲット！',
+  title: 'Amazing!',
+  message: 'You got a stamp!',
   emoji: '🎉',
   starsEarned: 3,
 );
 
-// 親ゲートモーダル
+// Parent gate modal
 final verified = await ParentGateModal.show(context);
 if (verified) {
-  // 親向け設定画面へ
+  // Navigate to parent settings
 }
 ```
 
 ---
 
-## 調査結果サマリー
+## Research Summary
 
-### 効果が実証された学習手法
+### Evidence-Based Learning Methods
 
-| 手法 | エビデンス |
-| ---- | ---------- |
-| ゲームベース学習 | 認知・社会・情緒面に中〜大の効果 |
-| 対話的読み聞かせ | 語彙スコア 26%→54% 向上 |
-| 個別最適化学習 | 従来比30%の成績向上 |
-| 分散学習 | 5-7歳で概念応用が有意に向上 |
-| モンテッソーリ教育 | 学業達成で効果量 g=1.10 |
+| Method | Evidence |
+| ------ | -------- |
+| Game-Based Learning | Medium–large effects on cognitive, social, and emotional aspects |
+| Dialogic Reading | Vocabulary scores improved from 26% to 54% |
+| Adaptive Learning | 30% improvement over traditional methods |
+| Spaced Learning | Significant improvement in concept application for ages 5–7 |
+| Montessori Education | Academic achievement effect size g=1.10 |
 
-### 絵本に取り入れる教育哲学
+### Educational Philosophies in Picture Books
 
-| 哲学 | 特徴 |
-| ---- | ---- |
-| モンテッソーリ | 自主性、感覚体験、写実的な描写 |
-| レッジョ・エミリア | 表現の多様性、環境描写の豊かさ |
-| SEL | 感情理解、共感、協働 |
-
----
-
-## 競合分析
-
-### 学習アプリ（海外）
-
-| サービス | 対象 | 価格 | 特徴 |
-| -------- | ---- | ---- | ---- |
-| ABCmouse | 2-8歳 | $7.95/月 | 7000+アクティビティ、100万+有料会員 |
-| Khan Academy Kids | 2-7歳 | 無料 | 非営利、高品質、AI難易度調整 |
-| Lingokids | 2-8歳 | ~$15/月 | 1.85億DL、Playlearning |
-| HOMER | 2-8歳 | $9.99/月 | リテラシー特化 |
-
-### 学習アプリ（国内）
-
-| サービス | 対象 | 価格 | 特徴 |
-| -------- | ---- | ---- | ---- |
-| こどもちゃれんじ | 0-6歳 | ¥1,990~/月 | しまじろう、物理教材+アプリ |
-| スマイルゼミ幼児 | 4-6歳 | ¥3,000~/月 | タブレット特化、AI丸付け |
-| ごっこランド | 3-9歳 | 無料 | 職業体験、スポンサーモデル、800万DL |
-| ワンダーボックス | 4-10歳 | ¥3,700~/月 | STEAM教育、Think!Think! |
-
-### 絵本アプリ（海外）
-
-| サービス | 価格 | 特徴 |
-| -------- | ---- | ---- |
-| Epic! | $9.99/月 | 40,000冊+、5000万ユーザー |
-| Amazon Kids+ | ¥480/月 | 動画・ゲーム含む総合サービス |
-| Vooks | $4.99/月 | 動画になる絵本、教師94%が効果実感 |
-
-### 絵本アプリ（国内）
-
-| サービス | 価格 | 特徴 |
-| -------- | ---- | ---- |
-| 絵本ナビプレミアム | ¥437/月 | 1000冊読み放題 |
-| PIBO | ¥480/月 | 昔話中心、プロ朗読 |
-| みいみ | ¥500/月 | 声優朗読、吹き替え機能、寝かしつけ特化 |
+| Philosophy | Key Features |
+| ---------- | ------------ |
+| Montessori | Autonomy, sensory experience, realistic depiction |
+| Reggio Emilia | Diverse expression, rich environmental description |
+| SEL | Emotional understanding, empathy, collaboration |
 
 ---
 
-## 参考資料
+## Competitive Analysis
 
-### 学術研究
+### Learning Apps (International)
 
-- Game-based Learning効果（Frontiers in Psychology, 2024）
-- 対話的読み聞かせ語彙効果（International Journal of Educational Research, 2009）
-- AI個別学習効果（Engageli, 2025）
-- モンテッソーリ教育メタ分析（Contemporary Educational Psychology, 2023）
+| Service | Ages | Price | Features |
+| ------- | ---- | ----- | -------- |
+| ABCmouse | 2–8 | $7.95/mo | 7,000+ activities, 1M+ paid members |
+| Khan Academy Kids | 2–7 | Free | Non-profit, high quality, AI difficulty adjustment |
+| Lingokids | 2–8 | ~$15/mo | 185M downloads, Playlearning |
+| HOMER | 2–8 | $9.99/mo | Literacy-focused |
 
-### 子供向けUXデザイン
+### Learning Apps (Japan)
 
-- Debra Levin Gelman『Design for Kids』
-- Nielsen Norman Group 子供向けUXガイドライン
-- Smashing Magazine 子供向けアプリ設計パターン
+| Service | Ages | Price | Features |
+| ------- | ---- | ----- | -------- |
+| Kodomo Challenge | 0–6 | ~$13/mo | Shimajiro, physical + digital materials |
+| Smile Zemi Kids | 4–6 | ~$20/mo | Tablet-focused, AI grading |
+| Gokko Land | 3–9 | Free | Career experience, sponsor model, 8M downloads |
+| WonderBox | 4–10 | ~$25/mo | STEAM education, Think!Think! |
 
-### 国内事例
+### Picture Book Apps (International)
 
-- みいみ（東京ガス・オトバンク）
-- ごっこランド（KidsStar）
-- 絵本ナビ
+| Service | Price | Features |
+| ------- | ----- | -------- |
+| Epic! | $9.99/mo | 40,000+ books, 50M users |
+| Amazon Kids+ | ~$3/mo | Includes video & games |
+| Vooks | $4.99/mo | Animated storybooks, 94% teacher approval |
+
+### Picture Book Apps (Japan)
+
+| Service | Price | Features |
+| ------- | ----- | -------- |
+| Ehon Navi Premium | ~$3/mo | 1,000 books unlimited |
+| PIBO | ~$3/mo | Folk tales, professional narration |
+| miimi | ~$3.50/mo | Voice actor narration, dubbing feature, bedtime-focused |
+
+---
+
+## References
+
+### Academic Research
+
+- Game-Based Learning Effects (Frontiers in Psychology, 2024)
+- Dialogic Reading Vocabulary Effects (International Journal of Educational Research, 2009)
+- AI Adaptive Learning Effects (Engageli, 2025)
+- Montessori Education Meta-Analysis (Contemporary Educational Psychology, 2023)
+
+### UX Design for Kids
+
+- Debra Levin Gelman, *Design for Kids*
+- Nielsen Norman Group, UX Guidelines for Children
+- Smashing Magazine, Design Patterns for Kids' Apps
+
+### Japanese Market References
+
+- miimi (Tokyo Gas / Otobank)
+- Gokko Land (KidsStar)
+- Ehon Navi
